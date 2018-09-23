@@ -9,9 +9,9 @@ import  VueRouter from 'vue-router'
 //安装路由
 Vue.use(VueRouter)
 //导入vue-resource
-import VueResource from 'vue-resource'
+//import VueResource from 'vue-resource'
 //安装vue-resource
-Vue.use(VueResource)
+//Vue.use(VueResource)
 //按需导入mint-ui组件
 import {Header,Swipe, SwipeItem } from 'mint-ui'
 Vue.component(Header.name,Header)

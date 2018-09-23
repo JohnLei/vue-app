@@ -21,7 +21,6 @@
                     </a>
                 </div>
             </div>
-
         </div>
     </div>
 </template>
@@ -33,7 +32,7 @@ import mui from '@/lib/mui/js/mui.min.js'
 export default {
     data () {
         return {
-
+            
         }
     },
     methods:{},
