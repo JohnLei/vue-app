@@ -21,7 +21,12 @@ Vue.component(SwipeItem.name, SwipeItem)
 import app from '@/APP.vue'
 //导入路由
 import router from '@/router/router'
-
+//定义全局的过滤器
+//导入格式化时间
+import moment from 'moment'
+Vue.filter('dateFormata',function(datestr, pattern = 'yyyy-mm-dd HH:mm:ss') {
+    return moment(datestr).format(pattern)
+})
 var vm = new Vue({
     el:'#app',
     render:c=>c(app),

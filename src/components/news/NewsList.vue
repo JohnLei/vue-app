@@ -7,36 +7,12 @@
 				<div class="mui-media-body">
 					<h1>{{item.title}}</h1>
 					<p class='mui-ellipsis'>
-						<span>发表时间:{{item.add_time}}</span>
+						<span>发表时间:{{item.add_time|dateFormata('YYYY-MM-DD')}}</span>
 						<span>点击:{{item.click}}次</span>
 					</p>
 				</div>
 			</a>
 		</li>
-		<!-- <li class="mui-table-view-cell mui-media">
-			<a href="javascript:;">
-				<img class="mui-media-object mui-pull-left" src="@/images/shuijiao.jpg">
-				<div class="mui-media-body">
-					<h1>木屋</h1>
-				<p class='mui-ellipsis'>
-					<span>发表时间:2018-09-12 12:00</span>
-					<span>点击:0次</span>
-				</p>
-				</div>
-			</a>
-		</li>
-		<li class="mui-table-view-cell mui-media">
-			<a href="javascript:;">
-				<img class="mui-media-object mui-pull-left" src="@/images/shuijiao.jpg">
-				<div class="mui-media-body">
-					<h1>CBD</h1>
-					<p class='mui-ellipsis'>
-						<span>发表时间:2018-09-12 12:00</span>
-						<span>点击:0次</span>
-					</p>
-				</div>
-			</a>
-		</li> -->
 </ul>
 </div>
 </template>
@@ -50,7 +26,7 @@ export default {
 	},
 	created() {
 		getNewList ().then(res => {
-			console.log(res)
+			// console.log(res)
 			if (res.status === 0) {
 				this.newslist = res.message
 			}
