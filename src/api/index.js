@@ -14,3 +14,5 @@ export const getComments = params => Axios.get(`getcomments/${params.id}?pageind
 export const AddComment = params => Axios.post(`postcomment/${params.id}`).then(res => res.data)
 // 获取商品列表
 export const getGoodsList = params => Axios.get(`getgoods?pageindex=${params.pageindex}`).then(res => res.data)
+// 商品详情轮播图
+export const getGoodInfoswipe = params => Axios.get(`getthumimages/${params.id}`).then(res => res.data)

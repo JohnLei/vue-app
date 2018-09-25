@@ -4,13 +4,17 @@
       <div class="mui-card">
 				<div class="mui-card-content">
 					<div class="mui-card-content-inner">
-						这是一个最简单的卡片视图控件；卡片视图常用来显示完整独立的一段信息，比如一篇文章的预览图、作者信息、点赞数量等
+            <mt-swipe>
+            <mt-swipe-item v-for="item in luobo" :key="item.id">
+              <img :src="item.src" alt="">
+            </mt-swipe-item>
+          </mt-swipe>
 					</div>
 				</div>
 			</div>
       <!-- 商品购买区域 -->
       <div class="mui-card">
-				<div class="mui-card-header">页眉</div>
+				<div class="mui-card-header">商品名称</div>
 				<div class="mui-card-content">
 					<div class="mui-card-content-inner">
 						包含页眉页脚的卡片，页眉常用来显示面板标题，页脚用来显示额外信息或支持的操作（比如点赞、评论等）
@@ -19,7 +23,7 @@
 			</div>
       <!-- 商品参数 -->
       <div class="mui-card">
-				<div class="mui-card-header"></div>
+				<div class="mui-card-header">商品参数</div>
 				<div class="mui-card-content">
 					<div class="mui-card-content-inner">
 						<p>Posted on January 18, 2016</p>
@@ -31,10 +35,44 @@
 </template>
            
 <script>
-export default{
+import {getGoodInfoswipe} from '@/api'
+export default {
+  data () {
+    return {
+      id:this.$route.params.id, //路由参数对象中的id
+      luobo:[]
+    }
+  },
+  created() {
+    this.getswipe()
+  },
+  methods: {
+    getswipe () {
+      getGoodInfoswipe ({id:this.id}).then(res => {
+        console.log(res)
+        if (res.status === 0) {
+          this.luobo = res.message
+        }
+      })
+    }
+  },
              
 }
 </script>
 <style lang="scss" scoped>
-
+.goodsInfo {
+  background-color: #eee;
+  overflow: hidden;
+  .mui-card {
+    .mint-swipe {
+      height: 200px;
+      .mint-swipe-item {
+        text-align: center;
+        img {
+          height: 100%;
+        }
+      }
+    }
+  }
+}
 </style>
