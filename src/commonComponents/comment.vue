@@ -7,7 +7,7 @@
         <div class="cm-list">
             <div class="cm-item" v-for="(item,index) in comments" :key="index">
                 <div class="title">
-                    第一楼&nbsp;&nbsp;用户:{{item.user_name}}&nbsp;&nbsp;发表时间:{{item.add_time|dateFormata}}
+                    第{{index+1}}楼&nbsp;&nbsp;用户:{{item.user_name}}&nbsp;&nbsp;发表时间:{{item.add_time|dateFormata}}
                 </div>
                 <div class="cm-content">
                     {{item.content}}
@@ -59,6 +59,10 @@ export default {
                         add_time : Date.now(),
                         content :this.content.trim()
                     }
+                    Toast({
+                        message: '操作成功',
+                        iconClass: 'icon icon-success'
+                    });
                     this.comments.unshift(cms)
                     this.content = ''
                 }

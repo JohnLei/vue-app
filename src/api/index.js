@@ -12,3 +12,5 @@ export const getNewInfo = params => Axios.get(`getnew/${params.id}`).then(res =>
 export const getComments = params => Axios.get(`getcomments/${params.id}?pageindex=${params.pageindex}`).then(res => res.data)
 // 点击添加评论
 export const AddComment = params => Axios.post(`postcomment/${params.id}`).then(res => res.data)
+// 获取商品列表
+export const getGoodsList = params => Axios.get(`getgoods?pageindex=${params.pageindex}`).then(res => res.data)
