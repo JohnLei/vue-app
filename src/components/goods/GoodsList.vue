@@ -1,6 +1,6 @@
 <template>
     <div class="goods-list">
-            <div class="goods-item" v-for="(item,index) in goodslist" :key="index">
+            <div class="goods-item" v-for="(item,index) in goodslist" :key="index" @click="goDetail(item.id)">
             <img :src="item.img_url" alt="">
             <h1 class="title">{{item.title}}</h1>
             <div class="info">
@@ -37,6 +37,10 @@ export default {
                 this.goodslist = res.message
             }
            }) 
+        },
+        //跳转到商品详情页面
+        goDetail (id) {
+            this.$router.push({name:'goodsinfo',params:{id}})
         }
     }
 }
