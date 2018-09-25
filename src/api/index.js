@@ -6,3 +6,7 @@ Axios.defaults.baseURL = 'http://www.lovegf.cn:8899/api/'
 export const getSwiper = params => Axios.get('getlunbo').then(res => res.data)
 // 获取新闻资讯数据
 export const getNewList = params => Axios.get('getnewslist').then(res => res.data)
+// 获取信息资讯详情页面数据
+export const getNewInfo = params => Axios.get(`getnew/${params.id}`).then(res => res.data)
+// 获取评论信息
+export const getComments = params => Axios.get(`getcomments/${params.id}?pageindex=${params.pageindex}`).then(res => res.data)

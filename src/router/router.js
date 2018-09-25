@@ -50,6 +50,10 @@ var router = new VueRouter({
             name: 'goodslist',
             // component: GoodsList
             component: reslove => require(['@/components/goods/GoodsList'], reslove)
+        }, {
+            path: '/home/newsinfo/:id',
+            name: 'newsInfo',
+            component: reslove => require(['@/components/news/NewsInfo'], reslove)
         }
 
     ],
