@@ -14,7 +14,7 @@
                 </div>
             </div>
         </div>
-        <mt-button type="danger" size="large" plain>加载更多</mt-button>
+        <mt-button type="danger" size="large" plain @click="getMore">加载更多</mt-button>
     </div>
 </template>
            
@@ -38,6 +38,11 @@ export default {
                     this.comments = res.message
                 }
             })   
+        },
+        //加载更多
+        getMore () {
+            this.pageindex++,
+            this.initComment()
         }
     },
     props:['id']    
