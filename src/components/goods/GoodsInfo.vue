@@ -17,7 +17,14 @@
 				<div class="mui-card-header">商品名称</div>
 				<div class="mui-card-content">
 					<div class="mui-card-content-inner">
-						包含页眉页脚的卡片，页眉常用来显示面板标题，页脚用来显示额外信息或支持的操作（比如点赞、评论等）
+						<p>
+              市场价:<del>￥1998</del>&nbsp;&nbsp;销售价:<span class="nowprice">￥8983</span>
+            </p>
+            <p>
+              购买数量:<numbox></numbox>
+            </p>
+            <mt-button type="primary" size="small">立即购买</mt-button>
+            <mt-button type="danger" size="small">加入购物车</mt-button>
 					</div>
 				</div>
 			</div>
@@ -26,16 +33,23 @@
 				<div class="mui-card-header">商品参数</div>
 				<div class="mui-card-content">
 					<div class="mui-card-content-inner">
-						<p>Posted on January 18, 2016</p>
-						<p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+						<p>商品货号:SD9897876</p>
+            <P>库存情况：200件</P>
+            <P>上架时间：2089-09-08 01:09:30</P>
 					</div>
 				</div>
+         <div class="mui-card-footer">
+          <mt-button type="primary" size="large" plain>图文介绍</mt-button>
+          <mt-button type="danger" size="large" plain>商品评论</mt-button>
+        </div>
     </div>
     </div>
 </template>
            
 <script>
 import {getGoodInfoswipe} from '@/api'
+// 导入数字输入框组件
+import numbox from '@/commonComponents/GoodsInfonumBox'
 export default {
   data () {
     return {
@@ -43,13 +57,16 @@ export default {
       luobo:[]
     }
   },
+  components: {
+    numbox
+  },
   created() {
     this.getswipe()
   },
   methods: {
     getswipe () {
       getGoodInfoswipe ({id:this.id}).then(res => {
-        console.log(res)
+        // console.log(res)
         if (res.status === 0) {
           this.luobo = res.message
         }
@@ -72,6 +89,17 @@ export default {
           height: 100%;
         }
       }
+    }
+  }
+  .nowprice {
+    color: red;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  .mui-card-footer {
+    display: block;
+    button {
+      margin: 15px 0;
     }
   }
 }
