@@ -18,3 +18,5 @@ export const getGoodsList = params => Axios.get(`getgoods?pageindex=${params.pag
 export const getGoodInfoswipe = params => Axios.get(`getthumimages/${params.id}`).then(res => res.data)
 //商品详情页参数区价格,标题
 export const getGoodsInfo = params =>Axios.get(`goods/getinfo/${params.id}`).then(res => res.data)
+// 获取商品图文的信息
+export const getGoodsDes = params => Axios.get(`goods/getdesc/${params.id}`).then(res => res.data)

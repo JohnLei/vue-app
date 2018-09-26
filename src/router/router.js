@@ -1,14 +1,5 @@
 //导入路由
 import VueRouter from 'vue-router'
-
-// 导入对应的路由组件
-// import HomeContainer from '@/components/tabbar/HomeContainer.vue'
-// import MemberContainer from '@/components/tabbar/MemberContainer.vue'
-// import ShopContainer from '@/components/tabbar/ShopContainer.vue'
-// import SearchContainer from '@/components/tabbar/SearchContainer.vue'
-// import NewsList from '@/components/news/NewsList.vue'
-// import PhotoList from '@/components/photos/PhotoList.vue'
-// import GoodsList from '@/components/goods/GoodsList.vue'
 //创建路由对象
 var router = new VueRouter({
     routes:[    //配置路由规则
@@ -58,6 +49,14 @@ var router = new VueRouter({
             path: '/home/goodsinfo/:id',
             name: 'goodsinfo',
             component: reslove => require(['@/components/goods/GoodsInfo'], reslove)
+        },{
+            path: '/home/goodsdesc/:id',
+            name: 'goodsdesc',
+            component: reslove => require(['@/components/goods/GoodsDesc'], reslove)
+        },{
+            path: '/home/goodscomment/:id',
+            name: 'goodscomment',
+            component: reslove => require(['@/components/goods/GoodsComment'], reslove)
         }
 
     ],
