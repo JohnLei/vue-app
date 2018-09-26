@@ -16,3 +16,5 @@ export const AddComment = params => Axios.post(`postcomment/${params.id}`).then(
 export const getGoodsList = params => Axios.get(`getgoods?pageindex=${params.pageindex}`).then(res => res.data)
 // 商品详情轮播图
 export const getGoodInfoswipe = params => Axios.get(`getthumimages/${params.id}`).then(res => res.data)
+//商品详情页参数区价格,标题
+export const getGoodsInfo = params =>Axios.get(`goods/getinfo/${params.id}`).then(res => res.data)
