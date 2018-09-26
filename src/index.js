@@ -13,11 +13,12 @@ Vue.use(VueRouter)
 //安装vue-resource
 //Vue.use(VueResource)
 //按需导入mint-ui组件
-import {Header,Swipe, SwipeItem,Button} from 'mint-ui'
+import {Header,Swipe, SwipeItem,Button,Switch} from 'mint-ui'
 Vue.component(Header.name,Header)
 Vue.component(Swipe.name, Swipe)
 Vue.component(SwipeItem.name, SwipeItem)
 Vue.component(Button.name, Button)
+Vue.component(Switch.name, Switch)
 // 导入APP组件
 import app from '@/APP.vue'
 //导入路由
