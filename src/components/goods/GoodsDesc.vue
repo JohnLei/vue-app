@@ -40,7 +40,7 @@ export default {
         margin: 15px 0;
     }
     .content {
-        img {
+        /deep/ img {
             width: 100%;
         }
     }

@@ -58,7 +58,7 @@ export default {
         justify-content: space-between;
     }
     .content {
-        /deep/img {
+        /deep/ img {
             width: 100%;
         }
     }

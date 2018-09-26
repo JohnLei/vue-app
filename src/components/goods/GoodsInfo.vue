@@ -1,5 +1,12 @@
 <template>
     <div class="goodsInfo">
+      <!-- 小球半场动画 -->
+      <transition
+      @before-enter="beforeEnter"
+      @enter="Enter"
+      @after-enter="afterEnter">
+        <div class="ball" v-show="ballflage" ref="ball"></div>
+      </transition>
       <!-- 商品轮播图 -->
       <div class="mui-card">
 				<div class="mui-card-content">
@@ -24,7 +31,7 @@
               购买数量:<numbox></numbox>
             </p>
             <mt-button type="primary" size="small">立即购买</mt-button>
-            <mt-button type="danger" size="small">加入购物车</mt-button>
+            <mt-button type="danger" size="small" @click="addtoshopCar">加入购物车</mt-button>
 					</div>
 				</div>
 			</div>
@@ -55,7 +62,8 @@ export default {
     return {
       id:this.$route.params.id, //路由参数对象中的id
       luobo:[],
-      goodsinfo:{}
+      goodsinfo:{},
+      ballflage:false //定义小球影藏显示的标识符
     }
   },
   components: {
@@ -91,13 +99,48 @@ export default {
     //路由跳转(商品评论)
     goComment (id) {
       this.$router.push({name:'goodscomment', params:{id}})
+    },
+    // 加入购物车的小球
+    addtoshopCar () {
+      this.ballflage = !this.ballflage
+    },
+    // 控制小球动画的钩子函数
+    beforeEnter (el) {
+      el.style.transform = 'translate(0,0)'
+    },
+    Enter (el,done) {
+      el.offsetWidth
+      // 获取小球在页面中的位置
+      const ballposition = this.$refs.ball.getBoundingClientRect()
+      //获取 徽标在页面中的位置
+      const bageposition = document.getElementById('bage').getBoundingClientRect()
+      // 计算出小球位移的位置
+      const xdesc = bageposition.left - ballposition.left
+      const ydesc = bageposition.top - ballposition.top
+      el.style.transform = `translate(${xdesc}px,${ydesc}px)`
+      el.style.transition = "all 1s cubic-bezier(.4,-0.3,1,.68)"
+      done()
+    },
+    afterEnter (el) {
+      this.ballflage = !this.ballflage
     }
+
   },
              
 }
 </script>
 <style lang="scss" scoped>
 .goodsInfo {
+  .ball {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: palevioletred;
+    position: absolute;
+    z-index: 10;
+    top: 390px;
+    left: 146px;
+  }
   background-color: #eee;
   overflow: hidden;
   .mui-card {
