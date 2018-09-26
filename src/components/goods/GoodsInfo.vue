@@ -118,7 +118,7 @@ export default {
       const xdesc = bageposition.left - ballposition.left
       const ydesc = bageposition.top - ballposition.top
       el.style.transform = `translate(${xdesc}px,${ydesc}px)`
-      el.style.transition = "all 1s cubic-bezier(.4,-0.3,1,.68)"
+      el.style.transition = "all .5s cubic-bezier(.4,-0.3,1,.68)"
       done()
     },
     afterEnter (el) {

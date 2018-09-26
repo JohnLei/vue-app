@@ -6,7 +6,7 @@ const webpack = require('webpack')
 module.exports = {
     mode:'development',
     //手动配置文件的入口文件
-    //entry:path.join(__dirname,'./src/main.js'),
+    // entry:path.join(__dirname,'./src/main.js'),
     //出口文件
     // output:{
     //     path:path.join(__dirname,'./dist'),
@@ -17,9 +17,24 @@ module.exports = {
             template:path.join(__dirname,'./src/index.html'),   //指定模块页面
             filename:'index.html',   //指定生成的页面
         }),
+        new webpack.optimize.SplitChunksPlugin({
+            chunks: "all",
+            minSize: 20000,
+            minChunks: 1,
+            maxAsyncRequests: 5,
+            maxInitialRequests: 3,
+            name: 'venders',
+            automaticNameDelimiter: '~',
+            cacheGroups: {
+                commons: {
+                test: /[\\/]node_modules[\\/]/,
+                name: 'vendors',
+                chunks: 'all'
+                }
+            }
+        }),
         new vueLoaderPlugin(),
-        new webpack.HotModuleReplacementPlugin()
-        
+        new webpack.HotModuleReplacementPlugin() 
     ],
     module:{
         rules:[
