@@ -4,10 +4,6 @@ import Vue from 'vue'
 import '@/lib/mui/css/mui.min.css'
 //导入mui图标的样式类
 import '@/lib/mui/css/icons-extra.css'
-//导入路由模块
-import  VueRouter from 'vue-router'
-//安装路由
-Vue.use(VueRouter)
 //导入vue-resource
 //import VueResource from 'vue-resource'
 //安装vue-resource
@@ -23,16 +19,20 @@ Vue.component(Switch.name, Switch)
 import app from '@/APP.vue'
 //导入路由
 import router from '@/router/router'
+// 导入vuex
+import store from '@/store/store'
 //定义全局的过滤器
 //导入格式化时间
 import moment from 'moment'
 Vue.filter('dateFormata',function(datestr, pattern = 'YYYY-MM-DD HH:mm:ss') {
     return moment(datestr).format(pattern)
 })
-var vm = new Vue({
+let vm = new Vue({
     el:'#app',
     render:c=>c(app),
     //挂载路由对象
-    router
+    router,
+    // 挂载 store
+    store
 })
     

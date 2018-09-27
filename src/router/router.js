@@ -1,7 +1,11 @@
+// 导入vuex
+import Vue from 'vue'
 //导入路由
 import VueRouter from 'vue-router'
+//安装路由
+Vue.use(VueRouter)
 //创建路由对象
-var router = new VueRouter({
+let router = new VueRouter({
     routes:[    //配置路由规则
         {
             path: '/',

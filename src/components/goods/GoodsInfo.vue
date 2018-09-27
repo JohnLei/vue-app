@@ -105,6 +105,15 @@ export default {
     // 加入购物车的小球
     addtoshopCar () {
       this.ballflage = !this.ballflage
+      // 拼接一个对象
+      let goodsinfo = {
+        id: this.id,  // 商品id
+        count: this.selectCount,  // 商品数量
+        price: this.goodsinfo.sell_price,  //商品单价
+        selected: true  //商品的选中状态
+      }
+      // 调用mutations中的方法存储数据
+      this.$store.commit('addtoCar', goodsinfo)
     },
     // 控制小球动画的钩子函数
     beforeEnter (el) {
