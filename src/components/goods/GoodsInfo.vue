@@ -28,7 +28,8 @@
               市场价:<del>￥{{ goodsinfo.market_price }}</del>&nbsp;&nbsp;销售价:<span class="nowprice">￥{{ goodsinfo.sell_price }}</span>
             </p>
             <p>
-              购买数量:<numbox></numbox>
+              <!-- 子组件向父组件传值 -->
+              购买数量:<numbox @getcount="getSelectedCount" :max="goodsinfo.stock_quantity"></numbox> 
             </p>
             <mt-button type="primary" size="small">立即购买</mt-button>
             <mt-button type="danger" size="small" @click="addtoshopCar">加入购物车</mt-button>
@@ -63,7 +64,8 @@ export default {
       id:this.$route.params.id, //路由参数对象中的id
       luobo:[],
       goodsinfo:{},
-      ballflage:false //定义小球影藏显示的标识符
+      ballflage:false, //定义小球影藏显示的标识符
+      selectCount:1
     }
   },
   components: {
@@ -123,6 +125,11 @@ export default {
     },
     afterEnter (el) {
       this.ballflage = !this.ballflage
+    },
+    //父组件接收子组件传来的count值,传递购买数量的值
+    getSelectedCount (count) {
+      this.selectCount = count  //重新赋值给data中的selectCount
+      // console.log(this.selectCount)
     }
 
   },
