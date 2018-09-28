@@ -2,16 +2,16 @@
 <div class="shopcar">
     <div class="goodslist">
             <!-- 商品列表区域 -->
-        <div class="mui-card">
+        <div class="mui-card" v-for="(item,index) in goodslist" :key="index">
 		<div class="mui-card-content">
 			<div class="mui-card-content-inner">
 				<mt-switch></mt-switch>
-                <img src="http://ofv795nmp.bkt.clouddn.com//upload/201504/20/thumb_201504200059017695.jpg" alt="">
+                <img :src="item.thumb_path" alt="">
                 <div class="shopinfo">
-                    <h2>苹果Apple iPhone 6 Plus 16G 4G手机（联通三网版）</h2>
+                    <h2>{{item.title}}</h2>
                     <p>
-                        <span class="price">￥7882</span>
-                        <shopnumbox></shopnumbox>
+                        <span class="price">￥{{item.sell_price}}</span>
+                        <shopnumbox :initCount="$store.getters.getGoodsCount[item.id]"></shopnumbox>
                         <a href="JavaScript:;">删除</a>
                     </p>
                  </div>
@@ -35,10 +35,34 @@
 </template>
 <script>
 import shopnumbox from '@/commonComponents/shopCarnumbox'
+import {getshopCarList} from '@/api'
 export default {
     data () {
         return {
-            
+            goodslist:[]
+        }
+    },
+    created() {
+        this.getgoodList()
+    },
+    methods: {
+        getgoodList () {
+            //获取到store中的数据
+            let idarr = []
+            this.$store.state.car.forEach(item => {
+                idarr.push(item.id)
+            })
+            //判断购物车中是否有数据
+            if (idarr.length <= 0) {
+                return
+            }
+            //发送请求
+            getshopCarList ({ids:idarr.join(',')}).then(res => {
+                console.log(res)
+                if (res.status === 0) {
+                    this.goodslist = res.message
+                }
+            })
         }
     },
     components: {

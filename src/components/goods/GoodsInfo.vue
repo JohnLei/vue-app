@@ -27,12 +27,12 @@
 						<p>
               市场价:<del>￥{{ goodsinfo.market_price }}</del>&nbsp;&nbsp;销售价:<span class="nowprice">￥{{ goodsinfo.sell_price }}</span>
             </p>
-            <p>
               <!-- 子组件向父组件传值 -->
-              购买数量:<numbox @getcount="getSelectedCount" :max="goodsinfo.stock_quantity"></numbox> 
-            </p>
+              <p>购买数量:<numbox @getcount="getSelectedCount" :max="goodsinfo.stock_quantity"></numbox></p> 
+            <p>
             <mt-button type="primary" size="small">立即购买</mt-button>
             <mt-button type="danger" size="small" @click="addtoshopCar">加入购物车</mt-button>
+            </p>
 					</div>
 				</div>
 			</div>
@@ -111,9 +111,9 @@ export default {
         count: this.selectCount,  // 商品数量
         price: this.goodsinfo.sell_price,  //商品单价
         selected: true  //商品的选中状态
-      }
+      };
       // 调用mutations中的方法存储数据
-      this.$store.commit('addtoCar', goodsinfo)
+      this.$store.commit('addToCar', goodsinfo)
     },
     // 控制小球动画的钩子函数
     beforeEnter (el) {

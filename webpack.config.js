@@ -1,40 +1,40 @@
 const path = require('path')
 //插件webpack-plugin
 const htmlWebpackPlugin = require('html-webpack-plugin')
-const vueLoaderPlugin = require('vue-loader/lib/plugin')
-const webpack = require('webpack')
+// const vueLoaderPlugin = require('vue-loader/lib/plugin')
+// const webpack = require('webpack')
 module.exports = {
-    mode:'development',
+    // mode:'development',
     //手动配置文件的入口文件
-    // entry:path.join(__dirname,'./src/main.js'),
+     entry:path.join(__dirname,'./src/index.js'),
     //出口文件
-    // output:{
-    //     path:path.join(__dirname,'./dist'),
-    //     filename:'bundle.js'
-    // },
+     output:{
+         path:path.join(__dirname,'./dist'),
+         filename:'bundle.js'
+     },
     plugins:[   //配置插件的节点
         new htmlWebpackPlugin({ //创建一个下内存中的HTML页面插件
             template:path.join(__dirname,'./src/index.html'),   //指定模块页面
             filename:'index.html',   //指定生成的页面
         }),
-        new webpack.optimize.SplitChunksPlugin({
-            chunks: "all",
-            minSize: 20000,
-            minChunks: 1,
-            maxAsyncRequests: 5,
-            maxInitialRequests: 3,
-            name: 'venders',
-            automaticNameDelimiter: '~',
-            cacheGroups: {
-                commons: {
-                test: /[\\/]node_modules[\\/]/,
-                name: 'vendors',
-                chunks: 'all'
-                }
-            }
-        }),
-        new vueLoaderPlugin(),
-        new webpack.HotModuleReplacementPlugin() 
+        // new webpack.optimize.SplitChunksPlugin({
+        //     chunks: "all",
+        //     minSize: 20000,
+        //     minChunks: 1,
+        //     maxAsyncRequests: 5,
+        //     maxInitialRequests: 3,
+        //     name: 'venders',
+        //     automaticNameDelimiter: '~',
+        //     cacheGroups: {
+        //         commons: {
+        //         test: /[\\/]node_modules[\\/]/,
+        //         name: 'vendors',
+        //         chunks: 'all'
+        //         }
+        //     }
+        // }),
+        // new vueLoaderPlugin(),
+        // new webpack.HotModuleReplacementPlugin() 
     ],
     module:{
         rules:[
@@ -45,7 +45,7 @@ module.exports = {
             //配置字体文件的loader
             {test:/\.(ttf|eot|svg|woff|woff2)$/,use:'url-loader'},
             //配置babel的loader
-            {test:/\.js$/,use:'babel-loader',exclude:/node_modules/},
+            {test:/\.js$/,use:'babel-loader',exclude:/node_modules/,include:[path.join(__dirname,'src')]},
             //配置vue-loader
             {test:/\.vue$/,use:'vue-loader'},
         ]
@@ -56,6 +56,6 @@ module.exports = {
             "vue$": "vue/dist/vue.js",
             '@':path.join(__dirname,'./src')    //配置项目根目录
         },
-        extensions:['.js','.jsx','json','.vue'] //省略后缀名
+        extensions:['.js','json','.vue'] //省略后缀名
     }
 }

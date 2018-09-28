@@ -20,3 +20,5 @@ export const getGoodInfoswipe = params => Axios.get(`getthumimages/${params.id}`
 export const getGoodsInfo = params =>Axios.get(`goods/getinfo/${params.id}`).then(res => res.data)
 // 获取商品图文的信息
 export const getGoodsDes = params => Axios.get(`goods/getdesc/${params.id}`).then(res => res.data)
+// 获取购物车页面的内容
+export const getshopCarList = params => Axios.get(`goods/getshopcarlist/${params.ids}`).then(res => res.data)
