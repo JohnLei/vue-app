@@ -5,14 +5,14 @@
         <div class="mui-card" v-for="(item,index) in goodslist" :key="index">
 		<div class="mui-card-content">
 			<div class="mui-card-content-inner">
-				<mt-switch></mt-switch>
+				<mt-switch v-model="$store.getters.getGoodsSelected[item.id]" @change="selectedChanged(item.id,$store.getters.getGoodsSelected[item.id])"></mt-switch>
                 <img :src="item.thumb_path" alt="">
                 <div class="shopinfo">
                     <h2>{{item.title}}</h2>
                     <p>
                         <span class="price">￥{{item.sell_price}}</span>
-                        <shopnumbox :initCount="$store.getters.getGoodsCount[item.id]"></shopnumbox>
-                        <a href="JavaScript:;">删除</a>
+                        <shopnumbox :initCount="$store.getters.getGoodsCount[item.id]" :goodsid="item.id"></shopnumbox>
+                        <a href="JavaScript:;" @click.prevent="deleteformcar(item.id,index)">删除</a>
                     </p>
                  </div>
 			</div>
@@ -25,7 +25,7 @@
             <div class="mui-card-content-inner Settlement">
                 <div class="left">
                     <p>总计(不含运费)</p>
-                    <p>已勾选商品<span class="red">1件</span>,总计<span class="red">￥5845</span></p>
+                    <p>已勾选商品<span class="red">{{$store.getters.getGoodsCountAndAmount.count}}件</span>,总计<span class="red">￥{{$store.getters.getGoodsCountAndAmount.amount}}</span></p>
                 </div>
                 <mt-button type="danger">去结算</mt-button>
             </div>
@@ -63,6 +63,15 @@ export default {
                     this.goodslist = res.message
                 }
             })
+        },
+        //实现购物车中的删除
+        deleteformcar (id,index) {
+            this.goodslist.splice(index,1)
+            this.$store.commit('deleteFormCar',id)
+        },
+        // 定义swith中的事件
+        selectedChanged (id,val) {
+            this.$store.commit('updateGoodsSelected',{id:id,selected:val})
         }
     },
     components: {

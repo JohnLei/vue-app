@@ -16,16 +16,19 @@ export default {
         }
     },
     methods: {
-        // countchange () {
-        //     // 监听数量变化
-        //     this.$store.commit()
-        // }
+        countchange () {
+            // 监听数量变化,当数量变化了.就把最新的数量同步到store中
+            this.$store.commit('updateCount',{
+                id:this.goodsid,
+                count:this.$refs.numbox.value
+            })
+        }
     },
     mounted() {
         // 初始化input输入框
         mui(".mui-numbox").numbox();
     },
-    props:['initCount']
+    props:['initCount','goodsid']
 }
     
 </script>
