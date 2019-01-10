@@ -27,7 +27,16 @@ import moment from 'moment'
 Vue.filter('dateFormata',function(datestr, pattern = 'YYYY-MM-DD HH:mm:ss') {
     return moment(datestr).format(pattern)
 })
-
+// 导入高德地图第三方包
+import AMap from 'vue-amap'
+// 挂载
+Vue.use(AMap)
+AMap.initAMapApiLoader({
+    key: '7379e88c421f576018174c8d99e9faf0',
+    plugin: ['AMap.Autocomplete', 'AMap.PlaceSearch', 'AMap.Scale', 'AMap.OverView',
+    'AMap.ToolBar', 'AMap.MapType', 'AMap.PolyEditor',
+    'AMap.CircleEditor','AMap.Geolocation','AMap.Geocoder'],
+})
 let vm = new Vue({
     el:'#app',
     render:c=>c(app),
