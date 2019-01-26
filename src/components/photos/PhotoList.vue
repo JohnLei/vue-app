@@ -1,7 +1,9 @@
 <template>
     <div>
     <div class="amap-page-container">
-        <el-amap vid="amap" :plugin="plugin" class="amap-demo" :center="center" :zoom="zoom" :events="events">
+    <el-amap vid="amap" :plugin="plugin" class="amap-demo" :center="center" :zoom="zoom" :events="events">
+        <el-amap-marker v-for="(marker, index) in markers" :position="marker.position" :key="index" :icon="marker.icon" :events="marker.events" :title="marker.title" :vid="index" >
+            </el-amap-marker>
       </el-amap>
 
       <div class="toolbar">
@@ -45,7 +47,15 @@ export default {
     data () {
         let self = this;
         return {
-          zoom: 10,  
+          zoom: 10,
+          markers: [{
+                    position:[114.305208, 30.592921]
+                }],
+                //搜索
+                searchOption: {
+                city: '',
+                citylimit: false
+              },   
           positions: {
             lng: 0,
             lat: 0,
@@ -88,6 +98,16 @@ export default {
                     } = e.lnglat;
                     self.lng = lng;
                     self.lat = lat;
+                    self.markers = [{
+                        position: [self.lng, self.lat],
+                        icon: '',
+                        title: '',
+                        events: {
+                            click(o) {
+                                // console.log(o)
+                            }
+                        }
+                    }];
                     var geocoder = new AMap.Geocoder({
                         radius: 1000,
                         extensions: "all"
@@ -107,7 +127,30 @@ export default {
                     }
                 });
             }
-     } 
+     }, 
+      marker: {
+                    position: [121.5273285, 31.21515044],
+                    events: {
+                        click: (e) => {
+                            //console.log(e)
+                        },
+                        dragend: (e) => {
+                            this.markers[0].position = [e.lnglat.lng, e.lnglat.lat]
+                        }
+                    },
+                    visible: true,
+                    draggable: false
+            },
+             mywindow: {
+                position: [121.5273285, 31.21515044],
+                content: '<h4>该点数据信息</h4><div class="text item">Information A: ...</div><div class="text item">Information B: ...</div>',
+                visible: true,
+                events: {
+                    close() {
+                        this.mywindow.visible = false
+                    }
+                }
+            },
     //  plugin: [{
     //         pName: 'Geolocation',
     //         events: {
@@ -128,7 +171,61 @@ export default {
     //       }]
         }
     },
-    methods:{},
+    methods:{
+        getaddress(){
+            let that = this
+            var geocoder = new AMap.Geocoder({
+                radius: 1000,
+                extensions: "all"
+            });
+            // console.log(geocoder)
+            geocoder.getAddress(that.center, function (status, result) {
+                // console.log(result)
+                if (status === 'complete' && result.info === 'OK') {
+                    if (result && result.regeocode) {
+                        that.form.alladdress = result.regeocode.formattedAddress;
+                        that.$nextTick();
+                    }
+                }
+            });
+        },
+        onSearchResult(pois) {
+            let latSum = 0;
+            let lngSum = 0;
+            console.log('1',pois)
+            if (pois.length > 0) {
+              pois.forEach(poi => {
+                let {lng, lat} = poi;
+                lngSum += lng;
+                latSum += lat;
+                this.markers[0].position=[poi.lng, poi.lat];
+              });
+              let center = {
+                lng: lngSum / pois.length,
+                lat: latSum / pois.length
+              };
+              this.center = [center.lng, center.lat];
+              this.lng = center.lng
+              this.lat = center.lat
+            }
+            let that = this
+            var geocoder = new AMap.Geocoder({
+                radius: 1000,
+                extensions: "all"
+            });
+            // console.log(geocoder)
+            geocoder.getAddress(that.center, function (status, result) {
+                // console.log(result)
+                if (status === 'complete' && result.info === 'OK') {
+                    if (result && result.regeocode) {
+                        that.form.alladdress = result.regeocode.formattedAddress;
+                        that.$nextTick();
+                    }
+                }
+            });
+            
+        }, 
+    },
     mounted () {
         //初始化滑动控件
         mui(".mui-scroll-wrapper").scroll({
